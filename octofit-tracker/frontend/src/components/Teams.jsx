@@ -18,7 +18,7 @@ function Teams() {
     <section className="data-page">
       <div className="section-heading"><div><p className="eyebrow">Find your people</p><h1>Teams</h1></div>{teams && <span className="section-count">{teams.length} teams</span>}</div>
       <CollectionState error={error} items={teams} resource="teams">
-        <div className="card-grid">{teams.map((team) => <article className="info-card" key={team._id || team.name}><div className="card-symbol">{team.mascot?.slice(0, 1) || 'T'}</div><div><h3>{team.name}</h3><p>{team.city}</p></div><span className="card-stat">{team.memberCount}<small> members</small></span></article>)}</div>
+        <div className="card-grid">{teams?.map((team) => <article className="info-card" key={team._id || team.name}><div className="card-symbol">{team.mascot?.slice(0, 1) || 'T'}</div><div><h3>{team.name}</h3><p>{team.city}</p></div><span className="card-stat">{team.memberCount}<small> members</small></span></article>)}</div>
       </CollectionState>
     </section>
   )

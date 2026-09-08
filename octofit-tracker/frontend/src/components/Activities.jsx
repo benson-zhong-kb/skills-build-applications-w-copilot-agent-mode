@@ -26,7 +26,7 @@ function Activities() {
       </div>
       <CollectionState error={error} items={activities} resource="activities">
         <div className="table-wrap"><table className="data-table"><thead><tr><th>Student</th><th>Activity</th><th>Duration</th><th>Calories</th><th>Date</th></tr></thead><tbody>
-          {activities.map((activity) => <tr key={activity._id || `${activity.username}-${activity.activityDate}`}><td><strong>{activity.username}</strong></td><td>{activity.activityType}</td><td>{activity.durationMinutes} min</td><td>{activity.caloriesBurned} kcal</td><td>{formatDate(activity.activityDate)}</td></tr>)}
+          {activities?.map((activity) => <tr key={activity._id || `${activity.username}-${activity.activityDate}`}><td><strong>{activity.username}</strong></td><td>{activity.activityType}</td><td>{activity.durationMinutes} min</td><td>{activity.caloriesBurned} kcal</td><td>{formatDate(activity.activityDate)}</td></tr>)}
         </tbody></table></div>
       </CollectionState>
     </section>
