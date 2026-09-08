@@ -56,53 +56,63 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check for codespace API endpoint in Activities.jsx
+      - name: Check for codespace API origin handling in api.js
+        id: check-api-origin
+        continue-on-error: true
+        uses: skills/action-keyphrase-checker@v2.0.0
+        with:
+          text-file: octofit-tracker/frontend/src/api.js
+          keyphrase: '-8000.app.github.dev'
+          minimum-occurrences: 1
+          case-sensitive: false
+
+      - name: Check for activities collection fetch usage
         id: check-activities
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
           text-file: octofit-tracker/frontend/src/components/Activities.jsx
-          keyphrase: '-8000.app.github.dev/api/activities'
+          keyphrase: "fetchCollection('activities')"
           minimum-occurrences: 1
           case-sensitive: false
 
-      - name: Check for codespace API endpoint in Leaderboard.jsx
+      - name: Check for leaderboard collection fetch usage
         id: check-leaderboard
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
           text-file: octofit-tracker/frontend/src/components/Leaderboard.jsx
-          keyphrase: '-8000.app.github.dev/api/leaderboard'
+          keyphrase: "fetchCollection('leaderboard')"
           minimum-occurrences: 1
           case-sensitive: false
 
-      - name: Check for codespace API endpoint in Teams.jsx
+      - name: Check for teams collection fetch usage
         id: check-teams
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
           text-file: octofit-tracker/frontend/src/components/Teams.jsx
-          keyphrase: '-8000.app.github.dev/api/teams'
+          keyphrase: "fetchCollection('teams')"
           minimum-occurrences: 1
           case-sensitive: false
 
-      - name: Check for codespace API endpoint in Users.jsx
+      - name: Check for users collection fetch usage
         id: check-users
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
           text-file: octofit-tracker/frontend/src/components/Users.jsx
-          keyphrase: '-8000.app.github.dev/api/users'
+          keyphrase: "fetchCollection('users')"
           minimum-occurrences: 1
           case-sensitive: false
 
-      - name: Check for codespace API endpoint in Workouts.jsx
+      - name: Check for workouts collection fetch usage
         id: check-workouts
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
           text-file: octofit-tracker/frontend/src/components/Workouts.jsx
-          keyphrase: '-8000.app.github.dev/api/workouts'
+          keyphrase: "fetchCollection('workouts')"
           minimum-occurrences: 1
           case-sensitive: false
 
@@ -118,14 +128,16 @@ jobs:
             step_number: 5
             results_table:
               - description: "Check activities for the API endpoint"
+                passed: ${{ steps.check-api-origin.outcome == 'success' }}
+              - description: "Check activities for collection fetch usage"
                 passed: ${{ steps.check-activities.outcome == 'success' }}
-              - description: "Check leaderboard for the API endpoint"
+              - description: "Check leaderboard for collection fetch usage"
                 passed: ${{ steps.check-leaderboard.outcome == 'success' }}
-              - description: "Check teams for the API endpoint"
+              - description: "Check teams for collection fetch usage"
                 passed: ${{ steps.check-teams.outcome == 'success' }}
-              - description: "Check users for the API endpoint"
+              - description: "Check users for collection fetch usage"
                 passed: ${{ steps.check-users.outcome == 'success' }}
-              - description: "Check workouts for the API endpoint"
+              - description: "Check workouts for collection fetch usage"
                 passed: ${{ steps.check-workouts.outcome == 'success' }}
 
       # END: Check practical exercise
